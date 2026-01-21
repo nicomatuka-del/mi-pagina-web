@@ -51,7 +51,7 @@
 
         .search-container {
             max-width: 600px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 2.5rem;
         }
 
         .search-bar {
@@ -62,13 +62,15 @@
             font-size: 1rem;
             outline: none;
             box-sizing: border-box;
+            transition: 0.3s;
         }
+
+        .search-bar:focus { border-color: var(--primary); }
 
         .productos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
-            justify-content: center;
         }
 
         .card {
@@ -79,16 +81,19 @@
             display: flex;
             flex-direction: column;
             border: 1px solid #eee;
+            transition: 0.3s;
         }
+
+        .card:hover { transform: translateY(-5px); }
 
         .card img {
             width: 100%;
-            height: 300px;
+            height: 280px;
             object-fit: cover;
         }
 
         .info {
-            padding: 25px;
+            padding: 20px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -96,58 +101,41 @@
 
         .info h3 {
             margin: 0;
-            font-size: 1.4rem;
-            line-height: 1.2;
+            font-size: 1.1rem;
+            min-height: 2.5em;
         }
 
         .descripcion {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-gray);
-            margin: 15px 0;
-            white-space: pre-line; /* Mantiene los saltos de línea */
+            margin: 10px 0;
+            white-space: pre-line;
             flex-grow: 1;
         }
 
         .price {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--dark);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .btn {
             display: block;
-            padding: 14px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             transition: 0.3s;
         }
 
-        .btn-mercado {
-            background: var(--primary);
-            color: white;
-        }
+        .btn-mercado { background: var(--primary); color: white; }
+        .btn-wsp { border: 2px solid var(--accent); color: var(--accent); }
+        .btn-wsp:hover { background: var(--accent); color: white; }
 
-        .btn-mercado:hover { opacity: 0.9; }
-
-        .btn-wsp {
-            border: 2px solid var(--accent);
-            color: var(--accent);
-        }
-
-        .btn-wsp:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        footer {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-gray);
-        }
+        footer { text-align: center; padding: 3rem; color: var(--text-gray); font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -158,11 +146,10 @@
 
     <div class="container">
         <div class="search-container">
-            <input type="text" id="buscador" class="search-bar" placeholder="Buscar en Sibuk..." onkeyup="filtrar()">
+            <input type="text" id="buscador" class="search-bar" placeholder="Buscar productos en Sibuk..." onkeyup="filtrar()">
         </div>
 
-        <div id="grid-productos" class="productos-grid">
-            </div>
+        <div id="grid-productos" class="productos-grid"></div>
     </div>
 
     <footer>
@@ -172,26 +159,103 @@
     <script>
         const MI_WHATSAPP = "541130009805";
 
-        // --- PRODUCTO INYECTADO ---
         const productos = [
             {
                 nombre: "Funda Cobertor de Auto para Mascotas",
                 precio: "59.899",
-                desc: `• Impermeable y resistente.
-                • Bolsillo para accesorios.
-                • Sistema de agarre 360º.
-                • Medidas: 1,43mt x 1,3mt.
-                • Material: Tela Oxford.
-                • Color: Gris con detalles naranja.`,
-                img: "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1173_2__1.jpg",
+                desc: "Impermeable, bolsillo para accesorios, sistema 360º con agarre de cinturón. 1,43mt x 1,3mt. Tela Oxford Gris/Negro.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1173_2.jpg",
                 link: "https://mpago.la/2mFKbMd"
+            },
+            {
+                nombre: "Botella infantil osito 1000 ML BLANCO",
+                precio: "17.287",
+                desc: "Capacidad 1000 ML. Diseño infantil de osito. Color Blanco.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh0060_3__4.jpg",
+                link: "https://mpago.la/32qgykP"
+            },
+            {
+                nombre: "Botella infantil osito 1000 ML CELESTE",
+                precio: "17.287",
+                desc: "Capacidad 1000 ML. Diseño infantil de osito. Color Celeste.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/w/h/wh0060_5__3.jpg",
+                link: "https://mpago.la/32qgykP"
+            },
+            {
+                nombre: "Botella infantil osito 1000 ML LILA",
+                precio: "17.287",
+                desc: "Capacidad 1000 ML. Diseño infantil de osito. Color Lila.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/67600a7cb63ab5e7d82f8b09de44ce0c/w/h/wh0060_2__2.jpg",
+                link: "https://mpago.la/32qgykP"
+            },
+            {
+                nombre: "Pinza Destapa Cañerías 90cm",
+                precio: "5.112",
+                desc: "Flexible con pinza. Largo: 90cm.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/67600a7cb63ab5e7d82f8b09de44ce0c/d/l/dl1254-1_2__2.png",
+                link: "https://mpago.la/2w8bLfX"
+            },
+            {
+                nombre: "Pinza Destapa Cañerías 160cm",
+                precio: "5.749",
+                desc: "Flexible con pinza. Largo: 160cm.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/67600a7cb63ab5e7d82f8b09de44ce0c/d/l/dl1254-1_6__1_2.png",
+                link: "https://mpago.la/1PGZgVt"
+            },
+            {
+                nombre: "Pinza Destapa Cañerías 200cm",
+                precio: "6.349",
+                desc: "Flexible con pinza. Largo: 200cm.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/67600a7cb63ab5e7d82f8b09de44ce0c/d/l/dl1254-1_4__1_1_1.png",
+                link: "https://mpago.la/2FXwHmg"
+            },
+            {
+                nombre: "Kit Martillo Saca Bollos",
+                precio: "32.749",
+                desc: "Martillo inverso saca bollos. Incluye 18 lengüetas.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/67600a7cb63ab5e7d82f8b09de44ce0c/d/l/dl2028.jpg",
+                link: "https://mpago.la/1FNLb6G"
+            },
+            {
+                nombre: "Aspiradora Recargable USB",
+                precio: "44.749",
+                desc: "Potencia 12000Pa. Recargable, incluye accesorios.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl2029_2_.jpg",
+                link: "https://mpago.la/2JhiJ3H"
+            },
+            {
+                nombre: "Revestimiento Símil Madera MARRÓN",
+                precio: "7.963",
+                desc: "Adhesivo de PVC. Medidas: 0,60 x 1 metro.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/67600a7cb63ab5e7d82f8b09de44ce0c/d/i/dise_o_sin_t_tulo_13_1_.jpg",
+                link: "https://mpago.la/1y9mesF"
+            },
+            {
+                nombre: "Revestimiento Símil Madera CARAMELO (Líneas Finas)",
+                precio: "7.936",
+                desc: "Adhesivo de PVC. Medidas: 0,60 x 1 metro.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/67600a7cb63ab5e7d82f8b09de44ce0c/d/i/dise_o_sin_t_tulo_13__1_13.jpg",
+                link: "https://mpago.la/2ac7aey"
+            },
+            {
+                nombre: "Revestimiento Símil Madera NEGRO",
+                precio: "7.963",
+                desc: "Adhesivo de PVC. Medidas: 0,60 x 1 metro.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/67600a7cb63ab5e7d82f8b09de44ce0c/d/l/dl1128_10__1_1_1.jpg",
+                link: "https://mpago.la/2EW8JPx"
+            },
+            {
+                nombre: "Revestimiento Símil Madera CARAMELO (Líneas Gruesas)",
+                precio: "7.963",
+                desc: "Adhesivo de PVC. Medidas: 0,60 x 1 metro.",
+                img: "https://droppers.com.ar/media/catalog/product/cache/67600a7cb63ab5e7d82f8b09de44ce0c/d/l/dl1128_5__1_1.jpg",
+                link: "https://mpago.la/2fp9ytz"
             }
         ];
 
         function cargarTienda(lista = productos) {
             const grid = document.getElementById('grid-productos');
             grid.innerHTML = "";
-
             lista.forEach(p => {
                 grid.innerHTML += `
                     <div class="card">
@@ -200,11 +264,8 @@
                             <h3>${p.nombre}</h3>
                             <p class="descripcion">${p.desc}</p>
                             <div class="price">$${p.precio}</div>
-                            
-                            <a href="${p.link}" target="_blank" class="btn btn-mercado">Comprar Ahora</a>
-                            
-                            <a href="https://wa.me/${MI_WHATSAPP}?text=Hola Sibuk! Me interesa la ${p.nombre}" 
-                               target="_blank" class="btn btn-wsp">Consultar WhatsApp</a>
+                            <a href="${p.link}" target="_blank" class="btn btn-mercado">Pagar ahora</a>
+                            <a href="https://wa.me/${MI_WHATSAPP}?text=Hola Sibuk! Me interesa: ${p.nombre}" target="_blank" class="btn btn-wsp">Consultar WhatsApp</a>
                         </div>
                     </div>
                 `;
@@ -213,7 +274,7 @@
 
         function filtrar() {
             const texto = document.getElementById('buscador').value.toLowerCase();
-            const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(texto));
+            const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(texto) || p.desc.toLowerCase().includes(texto));
             cargarTienda(filtrados);
         }
 
@@ -221,3 +282,4 @@
     </script>
 </body>
 </html>
+
