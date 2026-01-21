@@ -75,27 +75,36 @@
         <h1>Contacto</h1>
         <p>Déjame un mensaje y te responderé pronto.</p>
 
-        <form id="miFormulario">
-            <input type="text" id="nombre" placeholder="Tu nombre" required>
-            <input type="email" id="correo" placeholder="Tu email" required>
-            <textarea id="mensaje" rows="3" placeholder="Tu mensaje"></textarea>
-            <button type="submit">Enviar Mensaje</button>
-        </form>
-    </div>
+       <form action="https://formspree.io/f/tu-nicolasenricomino1402@gmail.com" method="POST" id="miFormulario">
+    <input type="text" name="nicolas" id="nombre" placeholder="Tu nombre" required>
+    <input type="email" name="nicolas" id="correo" placeholder="Tu email" required>
+    <textarea name="nicolas" id="mensaje" rows="3" placeholder="Tu mensaje"></textarea>
+    <button type="submit">Enviar Mensaje</button>
+</form>    </div>
 
     <script>
         const formulario = document.getElementById('miFormulario');
 
-        formulario.addEventListener('submit', (e) => {
-            e.preventDefault(); // Evita que la página se recargue
-            
-            const nombre = document.getElementById('nombre').value;
-            
-            alert(`¡Gracias ${nombre}! He recibido tu mensaje (esto es una simulación).`);
-            
-            formulario.reset(); // Limpia los campos
-        });
-    </script>
+formulario.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Evitamos que la página salte
+    
+    const datos = new FormData(formulario);
+    
+    // Enviamos los datos de forma "invisible"
+    const respuesta = await fetch(formulario.action, {
+        method: formulario.method,
+        body: datos,
+        headers: { 'Accept': 'application/json' }
+    });
+
+    if (respuesta.ok) {
+        alert('¡Mensaje enviado con éxito! Te responderé pronto.');
+        formulario.reset();
+    } else {
+        alert('Ups, hubo un error. Inténtalo de nuevo.');
+    }
+});   
+ </script>
 
 </body>
 </html>
