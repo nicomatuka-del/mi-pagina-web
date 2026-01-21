@@ -75,28 +75,33 @@
         <h1>Contacto</h1>
         <p>Déjame un mensaje y te responderé pronto.</p>
 
-       <form action="https://formspree.io/f/nicolasenricomino1402@gmail.com" method="POST" id="miFormulario">
-    <input type="text" name="nicolas" id="nombre" placeholder="Tu nombre" required>
-    <input type="email" name="nicolas" id="correo" placeholder="Tu email" required>
-    <textarea name="nicolas" id="mensaje" rows="3" placeholder="Tu mensaje"></textarea>
+<form action="https://formspree.io/f/nicolasenricomino1402@gmail.com" method="POST" id="miFormulario">
+    <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required>
+    <input type="email" name="email" id="correo" placeholder="Tu email" required>
+    <textarea name="mensaje" id="mensaje" rows="3" placeholder="Tu mensaje"></textarea>
     <button type="submit">Enviar Mensaje</button>
 </form>    </div>
 
-    <script>
-        const formulario = document.getElementById('miFormulario');
+<script>
+    const formulario = document.getElementById('miFormulario');
 
-formulario.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Evitamos que la página salte
-    
-    const datos = new FormData(formulario);
-    
-    // Enviamos los datos de forma "invisible"
-    const respuesta = await fetch(formulario.action, {
-        method: formulario.method,
-        body: datos,
-        headers: { 'Accept': 'application/json' }
+    formulario.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const datos = new FormData(formulario);
+        const respuesta = await fetch(formulario.action, {
+            method: formulario.method,
+            body: datos,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (respuesta.ok) {
+            alert('¡Mensaje enviado con éxito!');
+            formulario.reset();
+        } else {
+            alert('Ups, hubo un error.');
+        }
     });
-
+</script>
     if (respuesta.ok) {
         alert('¡Mensaje enviado con éxito! Te responderé pronto.');
         formulario.reset();
@@ -108,4 +113,3 @@ formulario.addEventListener('submit', async (e) => {
 
 </body>
 </html>
-
