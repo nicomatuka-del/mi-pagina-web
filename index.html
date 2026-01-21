@@ -3,107 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Perfil de Contacto</title>
+    <title>Sibuk - Tienda Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos para que se vea como una tarjeta profesional */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #e9ecef; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
+        :root {
+            --primary: #009ee3;
+            --dark: #111827;
+            --accent: #25d366;
+            --light: #f9fafb;
+            --text-gray: #6b7280;
         }
-        .tarjeta { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 20px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-            text-align: center; 
-            width: 90%; 
-            max-width: 350px; 
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: var(--light);
+            color: var(--dark);
         }
-        .perfil { 
-            width: 130px; 
-            height: 130px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 5px solid #007bff; 
-            margin-bottom: 20px; 
+
+        nav {
+            background: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        h1 { color: #333; margin-bottom: 5px; }
-        p { color: #666; margin-bottom: 25px; }
-        form { display: flex; flex-direction: column; gap: 15px; }
-        input, textarea { 
-            padding: 12px; 
-            border: 1px solid #ddd; 
-            border-radius: 8px; 
-            font-size: 14px;
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+            letter-spacing: -1px;
         }
-        button { 
-            background-color: #007bff; 
-            color: white; 
-            border: none; 
-            padding: 12px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: bold;
-            transition: background 0.3s;
+
+        .logo span { color: var(--primary); }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
         }
-        button:hover { background-color: #0056b3; }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 2px solid #eee;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+        }
+
+        .card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            line-height: 1.2;
+        }
+
+        .descripcion {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin: 15px 0;
+            white-space: pre-line; /* Mantiene los saltos de línea */
+            flex-grow: 1;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: block;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-mercado {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-mercado:hover { opacity: 0.9; }
+
+        .btn-wsp {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-wsp:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-gray);
+        }
     </style>
 </head>
 <body>
 
-    <div class="tarjeta">
-        <img src="https://picsum.photos/200" alt="Foto de Perfil" class="perfil">
-        
-        <h1>Contacto</h1>
-        <p>Déjame un mensaje y te responderé pronto.</p>
+    <nav>
+        <a href="#" class="logo">SI<span>BUK</span></a>
+    </nav>
 
-        <form action="https://formspree.io/f/nicomatuka@gmail.com" method="POST" id="miFormulario">
-            <input type="text" name="nombre" placeholder="Tu nombre" required>
-            <input type="email" name="email" placeholder="Tu email" required>
-            <textarea name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
-            <button type="submit" id="botonEnviar">Enviar Mensaje</button>
-        </form>
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="buscador" class="search-bar" placeholder="Buscar en Sibuk..." onkeyup="filtrar()">
+        </div>
+
+        <div id="grid-productos" class="productos-grid">
+            </div>
     </div>
 
+    <footer>
+        <p>© 2026 Sibuk Store. Todos los derechos reservados.</p>
+    </footer>
+
     <script>
-        const formulario = document.getElementById('miFormulario');
-        const boton = document.getElementById('botonEnviar');
+        const MI_WHATSAPP = "541130009805";
 
-        formulario.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Evita que la página se recargue
-            
-            boton.innerText = 'Enviando...';
-            boton.disabled = true;
-
-            const datos = new FormData(formulario);
-            
-            try {
-                const respuesta = await fetch(formulario.action, {
-                    method: formulario.method,
-                    body: datos,
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                if (respuesta.ok) {
-                    alert('¡Genial! Tu mensaje ha sido enviado correctamente.');
-                    formulario.reset();
-                } else {
-                    alert('Hubo un problema. Por favor, asegúrate de haber confirmado el email de Formspree.');
-                }
-            } catch (error) {
-                alert('Error de conexión. Inténtalo de nuevo.');
-            } finally {
-                boton.innerText = 'Enviar Mensaje';
-                boton.disabled = false;
+        // --- PRODUCTO INYECTADO ---
+        const productos = [
+            {
+                nombre: "Funda Cobertor de Auto para Mascotas",
+                precio: "59.899",
+                desc: `• Impermeable y resistente.
+                • Bolsillo para accesorios.
+                • Sistema de agarre 360º.
+                • Medidas: 1,43mt x 1,3mt.
+                • Material: Tela Oxford.
+                • Color: Gris con detalles naranja.`,
+                img: "https://droppers.com.ar/media/catalog/product/cache/fc7aedf049e376cd3ffcfea4b9c6abee/d/l/dl1173_2__1.jpg",
+                link: "https://mpago.la/2mFKbMd"
             }
-        });
-    </script>
+        ];
 
+        function cargarTienda(lista = productos) {
+            const grid = document.getElementById('grid-productos');
+            grid.innerHTML = "";
+
+            lista.forEach(p => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <img src="${p.img}" alt="${p.nombre}">
+                        <div class="info">
+                            <h3>${p.nombre}</h3>
+                            <p class="descripcion">${p.desc}</p>
+                            <div class="price">$${p.precio}</div>
+                            
+                            <a href="${p.link}" target="_blank" class="btn btn-mercado">Comprar Ahora</a>
+                            
+                            <a href="https://wa.me/${MI_WHATSAPP}?text=Hola Sibuk! Me interesa la ${p.nombre}" 
+                               target="_blank" class="btn btn-wsp">Consultar WhatsApp</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filtrar() {
+            const texto = document.getElementById('buscador').value.toLowerCase();
+            const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(texto));
+            cargarTienda(filtrados);
+        }
+
+        cargarTienda();
+    </script>
 </body>
 </html>
-
